@@ -1,5 +1,6 @@
-#ifndef GLUT_FRAMEWORK_H
-#define GLUT_FRAMEWORK_H
+#ifndef GLUTFRAMEWORK_H
+#define GLUTFRAMEWORK_H
+
 #include <GL/freeglut.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -7,12 +8,18 @@
 #include<iostream>
 #include<string.h>
 
+#include "vector.h"
 class GlutFramework{
 	private:
 		double frameTimeElapsed;
 	protected:
 		std::string title;
 		static GlutFramework *instance;
+
+		vector<float> eyeVector;
+		vector<float> centerVector;
+		vector<float> upVector;
+
 		int window;
 
 	public:
@@ -35,6 +42,11 @@ class GlutFramework{
 		virtual void mouseButtonPress(int button,int state,int x,int y);
 		virtual void mouseMove(int x,int y);
 		virtual void handleKeys(unsigned char key,int x,int y);
+		void setLookAt(float eyeX, float eyeY, float eyeZ, 
+					   float centerX, float centerY, float centerZ,
+					   float upX, float upY, float upZ);
+
+		vector<float> getEyeVector()const;
 		void setDisplayMatricies();
 		void setupLights();
 		void setTitle(std::string theTitle);

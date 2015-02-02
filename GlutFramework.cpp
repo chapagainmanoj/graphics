@@ -82,6 +82,16 @@ void GlutFramework::setupLights(){
 	
 	glLightModelfv( GL_LIGHT_MODEL_AMBIENT, lmodel_ambient );
 }
+void GlutFramework::setLookAt(float eyeX, float eyeY, float eyeZ,
+		float centerX, float centerY, float centerZ,
+		float upX, float upY, float upZ){
+	eyeVector=vector<float>(eyeX,eyeY,eyeZ);
+	centerVector=vector<float>(centerX,centerY,centerZ);
+	upVector=vector<float>(upX,upY,upZ);
+}
+vector<float> GlutFramework::getEyeVector() const{
+	return eyeVector;
+}
 void GlutFramework::setTitle(std::string theTitle){
 	title=theTitle;
 }
