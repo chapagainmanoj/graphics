@@ -16,9 +16,9 @@ class GlutFramework{
 		std::string title;
 		static GlutFramework *instance;
 
-		vector<float> eyeVector;
-		vector<float> centerVector;
-		vector<float> upVector;
+		vector eyeVector;
+		vector centerVector;
+		vector upVector;
 
 		int window;
 
@@ -37,7 +37,7 @@ class GlutFramework{
 		//virtual ~GlutFramework();
 		void startFramework(int argc, char *argv[]);
 		virtual void load();
-		virtual void display();
+		virtual void display(void);
 		virtual void reshape(int width,int height);
 		virtual void mouseButtonPress(int button,int state,int x,int y);
 		virtual void mouseMove(int x,int y);
@@ -46,7 +46,8 @@ class GlutFramework{
 					   float centerX, float centerY, float centerZ,
 					   float upX, float upY, float upZ);
 
-		vector<float> getEyeVector()const;
+		vector getEyeVector()const;
+		//virtual void toViewCord(point<float>);
 		void setDisplayMatricies();
 		void setupLights();
 		void setTitle(std::string theTitle);
