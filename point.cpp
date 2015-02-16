@@ -1,5 +1,5 @@
 #include "point.h"
-#include<math.h>
+#include <math.h>
 
 point::point():x(0.0),y(0.0),z(0.0),w(1.0){
 }
@@ -29,7 +29,6 @@ void point::transform(float matrix[4][4]){
 	this->y = value[1];
 	this->z = value[2];
 	this->w = 1.0;
-	std::cout<<"transformed "<<x<<"\t"<<y<<"\t"<<z<<"\t"<<std::endl;
 }
 
 void point::multMat(float matrix[4][4]){
@@ -42,7 +41,6 @@ void point::multMat(float matrix[4][4]){
 	this->y = value[1];
 	this->z = value[2];
 	this->w = value[3];
-	std::cout<<"transformed // multMat"<<this->x<<"\t"<<this->y<<"\t"<<this->z<<"\t"<<this->w<<std::endl;
 }
 
 
@@ -52,7 +50,6 @@ void point::normalize() {
 		this->x /= length;
 		this->y /= length;
 		this->z /= length;
-		std::cout<<"normalized"<<std::endl;
 	} else { 
 		//printf( "VECTOR DIVIDE BY ZERO ERROR\n" );
 	}
@@ -77,7 +74,7 @@ void point::rotatey(float theta){
 	this->z=-1*sin(theta)*x+cos(theta)*z;
 }
 void point::rotatez(float theta){
-	x=cos(theta)*x-sin(theta)*y;
-	y=sin(theta)*x+cos(theta)*y;
+	this->x=cos(theta)*x-sin(theta)*y;
+	this->y=sin(theta)*x+cos(theta)*y;
 }
 
