@@ -4,6 +4,7 @@
 #include "GlutFramework.h"
 #include "vector.h"
 #include "point.h"
+#include "object.h"
 /*struct edge{
 	point<T> p1,p2;
 };*/
@@ -12,10 +13,9 @@ class shape:public GlutFramework {
 		float rtri;
 		float zvp;
 		float zprp;
-		point *p1;
-		point *p2;
-		point *p3;
-                point *p4;
+                object *b;
+
+        point *p1,*p2,*p3,*p4;
 	public:
 		shape();
 		//~shape();

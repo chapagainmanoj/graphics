@@ -1,60 +1,53 @@
 #include "shape.h"
-
 shape::shape(){
         //rtri=0.0;
 
 	setLookAt(1.0,0.0,2.0,0.0,0.0,0.0,0.0,1.0,0.0);
 	
-        /*
-        p1=new point(0.0f,1.0f,0.0f);
-	p2=new point(1.0f,-1.0f,1.0f);
+        b=new object();
+
+        p1=new point(1.0f,1.0f,-1.0f);
+	p2=new point(1.0f,-1.0f,-1.0f);
 	p3=new point(-1.0f,-1.0f,1.0f);
-	p4=new point(1.0f,-1.0f,-1.0f);
-	p5=new point(-1.0f,-1.0f,-1.0f);
-
-        */
-	zvp=-1;zprp=6;
-
-        p1=new point(1.0,1.0,0.0);
-        p2=new point(-1.0,1.0,0.0);
-        p3=new point(-1.0,-1.0,0.0);
-        p4=new point(1.0,-1.0,0.0);
-}
-void shape::display(){
-        //p1->rotatez(rtri*3.14/180);
-        //p2->rotatez(rtri*3.14/180);
-        //p3->rotatez(rtri*3.14/180);
-        //p4->rotatez(rtri*3.14/180);
-        //p5->rotatez(rtri*3.14/180);
-
+	p4=new point(1.0f,-1.0f,1.0f);
 	toViewCord(p1);
 	toViewCord(p2);
 	toViewCord(p3);
 	toViewCord(p4);
-	//toViewCord(p5);
-
 	pptiveProjxn(p1,zvp,zprp);
 	pptiveProjxn(p2,zvp,zprp);
 	pptiveProjxn(p3,zvp,zprp);
 	pptiveProjxn(p4,zvp,zprp);
-	//pptiveProjxn(p5,zvp,zprp);
-        
-        drawLine(p1,p2);drawLine(p2,p3);
-        drawLine(p3,p4);drawLine(p4,p1);
-        //rtri+=5.0;
 
-/*	
-        drawLine(p1,p2);	drawLine(p2,p3);
-	drawLine(p3,p1);	drawLine(p1,p4);
-	drawLine(p4,p2);	drawLine(p1,p5);
-	drawLine(p5,p4);	drawLine(p3,p5);
-        
-        */
+        b->vTable(*p1);
+        b->vTable(*p2);
+        b->vTable(*p3);
+        b->vTable(*p4);
+
+        edge *e1,*e2,*e3,*e4;
+        e1=new edge(p1,p2);
+        e2=new edge(p2,p3);
+        e3=new edge(p3,p4);
+        e4=new edge(p4,p1);
+        b->eTable(*e1);
+        b->eTable(*e2);
+        b->eTable(*e3);       
+        b->eTable(*e4);
+
+	zvp=-1;zprp=6;
+
+}
+void shape::display(){
+
+        //rtri+=5.0;
+        b->draw();
+        b->showETable();
+        b->showVTable();
         point *color1=new point(0.0,1.0,0.0);
         point *color2=new point(1.0,1.0,0.0);
         point *color3=new point(0.0,0.0,1.0);
-        triangleFill(p1,p2,p3,color1);
-        triangleFill(p1,p3,p4,color2);
+        //triangleFill(p1,p2,p3,color1);
+        //triangleFill(p1,p3,p4,color2);
 
 /*
         triangleFill(p1,p3,p5,color3);
