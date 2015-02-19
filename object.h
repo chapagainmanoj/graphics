@@ -16,7 +16,9 @@ struct edge{
         trisurface(edge *a,edge *b,edge *c)
 };*/
 class object{
-	protected:
+	public:
+
+                point *p[4];
                 std::vector<point> pointTable;
                 std::vector<edge> edgeTable;
                 //std::vector<trisurface> surfaceTable;

@@ -2,37 +2,16 @@
 shape::shape(){
         //rtri=0.0;
 
-	setLookAt(1.0,0.0,2.0,0.0,0.0,0.0,0.0,1.0,0.0);
+	setLookAt(1.0,1.0,3.0,0.0,0.0,0.0,0.0,1.0,0.0);
 	
-        b=new object();
+        //b=new object();
+      
 
-        p1=new point(1.0f,1.0f,-1.0f);
-	p2=new point(1.0f,-1.0f,-1.0f);
-	p3=new point(-1.0f,-1.0f,1.0f);
-	p4=new point(1.0f,-1.0f,1.0f);
-	toViewCord(p1);
-	toViewCord(p2);
-	toViewCord(p3);
-	toViewCord(p4);
-	pptiveProjxn(p1,zvp,zprp);
-	pptiveProjxn(p2,zvp,zprp);
-	pptiveProjxn(p3,zvp,zprp);
-	pptiveProjxn(p4,zvp,zprp);
+        points.push_back(point(1.0f, 1.0f, 0.0f));
+        points.push_back(point(1.0f, -1.0f, 0.0f));
+        points.push_back(point(-1.0f, -1.0f, 0.0f));
+        points.push_back(point(-1.0f, 1.0f, 0.0f));
 
-        b->vTable(*p1);
-        b->vTable(*p2);
-        b->vTable(*p3);
-        b->vTable(*p4);
-
-        edge *e1,*e2,*e3,*e4;
-        e1=new edge(p1,p2);
-        e2=new edge(p2,p3);
-        e3=new edge(p3,p4);
-        e4=new edge(p4,p1);
-        b->eTable(*e1);
-        b->eTable(*e2);
-        b->eTable(*e3);       
-        b->eTable(*e4);
 
 	zvp=-1;zprp=6;
 
@@ -40,9 +19,21 @@ shape::shape(){
 void shape::display(){
 
         //rtri+=5.0;
-        b->draw();
-        b->showETable();
-        b->showVTable();
+
+        //b->loadObject();
+        //b->showVTable();
+
+        for(int i=0; i<points.size(); ++i)
+        {
+                toViewCord(points[i]);
+                pptiveProjxn(points[i], zvp, zprp);
+                points[i].showPoint();
+        }
+
+        for(int i=0;i<points.size();++i){
+                drawLine(points[i],points[(i+1)%points.size()]);
+        }
+        //b->draw();
         point *color1=new point(0.0,1.0,0.0);
         point *color2=new point(1.0,1.0,0.0);
         point *color3=new point(0.0,0.0,1.0);
@@ -124,8 +115,8 @@ void shape::triangleFill(point *p1,point *p2,point *p3,point *color){
                 glEnd();
         }
 }
-void shape::toViewCord(point *p){
-	p->translate(-centerVector.x,-centerVector.y,-centerVector.z);
+void shape::toViewCord(point &p){
+	p.translate(-centerVector.x,-centerVector.y,-centerVector.z);
 
 	vector n(eyeVector,centerVector);
 	vector V(upVector.x,upVector.y,upVector.z);
@@ -138,27 +129,27 @@ void shape::toViewCord(point *p){
 		{n.x,n.y,n.z,0.0},
 		{0.0,0.0,0.0,1.0}
 	};
-	p->transform(rmat);
-	p->normalize();
+	p.transform(rmat);
+	p.normalize();
 }
-void shape::pptiveProjxn(point *p,float zvp,float zprp){
+void shape::pptiveProjxn(point &p,float zvp,float zprp){
 	float dp=zprp-zvp;
 	float pmat[4][4]={{1,0,0,0},
 			{0,1,0,0},
 			{0,0,-zvp/dp,zvp*(zprp/dp)},
 			{0,0,-1/dp,zprp/dp}
 	};
-	p->multMat(pmat);
-	p->x /=p->w;
-	p->y /=p->w;
-	p->z /=p->w;
-	p->w /=p->w;
+	p.multMat(pmat);
+	p.x /=p.w;
+	p.y /=p.w;
+	p.z /=p.w;
+	p.w /=p.w;
 	
 }
-void shape::drawLine(point *p1,point *p2){
+void shape::drawLine(point &p1,point &p2){
 	glBegin(GL_LINES);
 	glColor3f(1.0,0.0,0.0);
-	glVertex2f(p1->x,p1->y);
-	glVertex2f(p2->x,p2->y);
+	glVertex2f(p1.x,p1.y);
+	glVertex2f(p2.x,p2.y);
 	glEnd();
 }

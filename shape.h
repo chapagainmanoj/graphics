@@ -3,19 +3,17 @@
 #include <iostream>
 #include "GlutFramework.h"
 #include "vector.h"
+#include <vector>
 #include "point.h"
 #include "object.h"
-/*struct edge{
-	point<T> p1,p2;
-};*/
+
 class shape:public GlutFramework {
 	private:
-		float rtri;
+		//float rtri;
 		float zvp;
 		float zprp;
-                object *b;
-
-        point *p1,*p2,*p3,*p4;
+                //object *b;
+                std::vector<point> points;
 	public:
 		shape();
 		//~shape();
@@ -24,9 +22,9 @@ class shape:public GlutFramework {
 		void load();
 
 		void triangleFill(point *p1,point *p2,point *p3,point *colorRGBA);
-		void pptiveProjxn(point *p,float zvp,float zprp);
-		void toViewCord(point *p);
-		void drawLine(point *p1,point *p2);
+		void pptiveProjxn(point &p,float zvp,float zprp);
+		void toViewCord(point &p);
+		void drawLine(point &p1,point &p2);
 		//void mouseButtonPress(int button,int state,int x,int y);
 		//void mouseMove(int x,int y);
 };

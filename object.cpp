@@ -1,7 +1,7 @@
+#ifndef OBJECT_H
+#define OBJECT_H
 #include "object.h"
 #include <GL/gl.h>
-//#include <GL/glu.h>
-//#include <GL/glut.h>
 object::object(){
 
 
@@ -28,6 +28,22 @@ void object::eTable(edge &e){
   //      surfaceTable.push_back(s);
 //}
 void object::loadObject(){
+ /*       int n;
+        std::cout<<"Enter no of points:";std::cin>>n;
+        for(int i=0;i<n;i++){
+                point *p;
+                float x,y,z;
+                std::cout<<"Enter point x y z:"; std::cin>>x>>y>>z;
+                p=new point(x,y,z);
+                pointTable.push_back(*p);
+        }*/
+        p[0]=new point(1,1,1);
+        p[1]=new point(1,-1,1);
+        p[2]=new point(-1,-1,1);
+        p[3]=new point(-1,1,1);
+        for(int i=0;i<4;i++){
+                pointTable.push_back(*p[i]);
+        }
 }
 void object::draw(){
 for(int i=0;i<edgeTable.size();i++){
@@ -53,3 +69,4 @@ void edge::drawEdge(){
 /*trisurface::trisurface(edge *a,edge *b,edge *c){
         e1=a;e2=b;e3=c;
 }*/
+#endif
